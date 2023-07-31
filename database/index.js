@@ -18,7 +18,7 @@ const findQuestionsByTopic = (topic) => {
   return questions.find((question) => question.topic === topic);
 };
 
-const findAnswerByQuestion = (question) => {
+const findAnswerByQuestion = (questionToFind) => {
   for (const topic of questions) {
     const foundQuestion = topic.questions.find(
       (question) => question.question === questionToFind
@@ -30,10 +30,21 @@ const findAnswerByQuestion = (question) => {
   return "No such question in the database!";
 };
 
+const generateRandomQuestion = () => {
+  const randomTopicIndex = Math.floor(Math.random() * questions.length);
+  const randomTopic = questions[randomTopicIndex];
+  const randomQuestionIndex = Math.floor(
+    Math.random() * randomTopic.questions.length
+  );
+
+  return randomTopic.questions[randomQuestionIndex].question;
+};
+
 module.exports = {
   findStudentByName,
   findStudentBySchool,
   findBestStudent,
   findQuestionsByTopic,
   findAnswerByQuestion,
+  generateRandomQuestion,
 };
