@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "A backend server for the LFA project cycle 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kspiropali/hugs-for-bugs.git#questions_page"
+  },
+  "keywords": [
+    "backend",
+    "server",
+    "async",
+    "api",
+    "students",
+    "login"
+  ],
+  "author": "Kristian Spiropali (kspiropali)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kspiropali/hugs-for-bugs/issues"
+  },
+  "homepage": "https://github.com/Kspiropali/hugs-for-bugs/tree/questions_page#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "logger": "^0.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3"
+  }
+}
