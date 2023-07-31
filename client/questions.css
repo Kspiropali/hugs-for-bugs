@@ -1,0 +1,92 @@
+body {
+  background-color: rgb(12 30 59);
+  display: flex;
+  justify-content: center;
+  padding-top: 150px;
+}
+
+.quiz-container {
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+  overflow: hidden;
+  width: 750px;
+  background: radial-gradient(circle, rgb(0 42 255) 0%, rgb(76 135 231) 100%);
+  margin-top: 7rem;
+}
+
+.quiz-header {
+  padding: 4rem;
+}
+
+h2 {
+  margin-bottom: 3rem;
+  padding: 1rem;
+  text-align: center;
+  font-size: 3rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  font-size: 2.2rem;
+  margin: 1rem 0;
+}
+
+ul li label {
+  cursor: pointer;
+}
+
+button {
+  background-color: #091f34;
+  border: none;
+  color: white;
+  font-family: inherit;
+  font-size: 2rem;
+  width: 100%;
+  padding: 1.3rem;
+}
+
+button:hover {
+  background-color: #11325047;
+}
+
+#logo {
+  width: 400px;
+  height: 130px;
+  top: 0;
+  position: absolute;
+  background: rgba(6, 6, 246, 0.726);
+  left: 0;
+  border-radius: 1.3rem;
+}
+
+#scorebox {
+  width: 400px;
+  height: 130px;
+  top: 0;
+  position: absolute;
+  background: rgba(1, 118, 1, 0.885);
+  left: 10;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  font-size: 4.3rem;
+}
+
+#homepage_redirect {
+  width: 400px;
+  height: 130px;
+  top: 0;
+  position: absolute;
+  background: #ff2020c0;
+  right: 0;
+  border-radius: 20%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 4.3rem;
+}
