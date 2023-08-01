@@ -78,6 +78,7 @@ app.post("/question/random", (req, res) => {
 // should possibly return {outcome: "false || true", answer: answer}
 app.post("/question/verify", (req, res) => {
   let { name, question, answer } = req.body;
+  console.log(req.body);
 
   if (!question || (question.length === 0 && typeof question !== String)) {
     return res.status(400).send("Please provide a valid question!");
