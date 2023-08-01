@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet"  type="text/css" href="styles.css">
+    <link rel="stylesheet"  type="text/css" href="normalize.css">
+    <link rel="icon" type="image/gif" href="favicon.ico">
+    <script defer type="application/javascript" src="index.js"></script>
 </head>
 <body>
     <div id="main-box">
         <section id="menu-section">
-            <div class="img-container"><img style="visibility: hidden;" src="assets/Happy Sun.svg" alt=""></div>
+            <div class="img-container"><img style="visibility: hidden;" src="Happy Sun.svg" alt=""></div>
             <div id="menu">
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Enter your username:" name="username"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+
                 <button id="btn-play">Play the quiz</button>
                 <button id="btn-logout">Logout</button>
                 <div id="leaderboard">
                     <h2>Leaderboard</h2>
                 </div>
             </div>
-            <div class="img-container"> <img src="assets/Happy Sun.svg" alt="smile sun"></div>
+            <div class="img-container"> <img src="Happy Sun.svg" alt="smile sun"></div>
         </section>
         <section id="tree-section">
             <div class=tree-container>
