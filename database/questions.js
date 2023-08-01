@@ -1,34 +1,36 @@
+// database for questions
 let questions = [
   {
-    "topic": "maths",
-    "questions": [
+    id: 1,
+    topic: "maths",
+    questions: [
       {
-        "question": "what is 1+1",
-        "answer": "2",
-        "wrongAnswers": ["10", "20", "30"]
-      }
-    ]
+        question: "what is 1+1",
+        answer: "2",
+        wrongAnswers: ["10", "20", "30"],
+      },
+    ],
   },
   {
-    "topic": "physics",
-    "questions": [
+    topic: "physics",
+    questions: [
       {
-        "question": "whats the temp of the sun",
-        "answer": "10000c",
-        "wrongAnswers": ["-10000c", "1900000c", "1500000c"]
-      }
-    ]
+        question: "whats the temp of the sun",
+        answer: "10000c",
+        wrongAnswers: ["-10000c", "1900000c", "1500000c"],
+      },
+    ],
   },
   {
-    "topic": "biology",
-    "questions": [
+    topic: "biology",
+    questions: [
       {
-        "question": "How many bones in a human?",
-        "answer": "206",
-        "wrongAnswers": ["10", "200", "3000"]
-      }
-    ]
-  }
+        question: "How many bones in a human?",
+        answer: "206",
+        wrongAnswers: ["10", "200", "3000"],
+      },
+    ],
+  },
 ];
 
 module.exports = questions;
