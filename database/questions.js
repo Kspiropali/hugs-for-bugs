@@ -1,4 +1,4 @@
-[
+let questions = [
   {
     "topic": "maths",
     "questions": [
@@ -29,4 +29,6 @@
       }
     ]
   }
-]
+];
+
+module.exports = questions;
