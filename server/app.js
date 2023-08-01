@@ -8,6 +8,8 @@ const cors = require("cors");
 const app = express();
 const project_dir = path.join(__dirname, "..");
 const dbUtils = require("../database/index");
+const students = require("../database/students");
+const questions = require("../database/questions");
 
 app.use(cors());
 app.use(express.json());
@@ -36,6 +38,14 @@ app.get("/question", (req, res) => {
   return res.sendFile(project_dir + "/client/questions.html");
 });
 
+app.get("/admin/students", (req, res) => {
+  return res.send(students);
+});
+
+app.get("/admin/questions", (req, res) => {
+  return res.send(questions);
+});
+
 // user login api via their name
 app.post("/login", (req, res) => {
   const name = req.body.name;
@@ -60,7 +70,8 @@ app.post("/login", (req, res) => {
 
 // random question api, TODO: fix question being generated 2 times in a row
 app.post("/question/random", (req, res) => {
-  return res.send({ question: dbUtils.generateRandomQuestion() });
+  const jsonObj = dbUtils.generateRandomQuestion();
+  return res.send(jsonObj);
 });
 
 // verify question api, TODO: should accept {username: username, question: question}
@@ -78,26 +89,38 @@ app.post("/question/verify", (req, res) => {
       .send("Please provide a valid answer to the question!");
   }
 
-  let correntAnswer = dbUtils.findAnswerByQuestion(question);
+  if (!name || (name.length === 0 && typeof name !== String)) {
+    return res.status(400).send("Please provide a valid username!");
+  }
 
-  if (correntAnswer === "No such question in the database!") {
+  // check if name exists in database
+  let status = dbUtils.findStudentByName(name);
+  if (!status) {
+    return res
+      .status(401)
+      .send("Student's name does not exist in the database!");
+  }
+
+  let correctAnswer = dbUtils.findAnswerByQuestion(question);
+
+  if (correctAnswer === "No such question in the database!") {
     return res.status(400).send("Question could not be found in the database!");
   }
 
-  if (correntAnswer !== answer) {
-    // TODO: increment name's wrongCounter +1
+  if (correctAnswer !== answer) {
+    // increment name's wrongCounter +1
+    dbUtils.changeStudentQuestionCounter(name, question, "wrong")
     return res.send("Incorrect!");
   }
 
   // TODO: increment name's correctCounter +1
+  dbUtils.changeStudentQuestionCounter(name, question, "correct")
   return res.send("Correct!");
 });
-
 
 // TODO: calculate points of students based on all questions answered(if not answered, skip)
 // Formula: 1 point of correctCounter is +1, 1 point of wrongCounter is -0.5
 // returns an object of [{name: "studentName", points : "20pts"}, {}, {}]
-
 
 // endpoint to get the average points for all questions and calculate the average
 // return [{topic: "topicname", questions: [{}, {} , {}]}, {}, {}]

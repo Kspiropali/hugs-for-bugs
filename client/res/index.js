@@ -19,11 +19,14 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 
   requestOptions.headers.append("body", data);
 
-  console.log(requestOptions);
-
   fetch("http://localhost:8080/login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
+      if(result === "Student's name does not exist in the database!"){
+        alert("Wrong username!");
+        document.querySelector("#username").value = "";
+        return;
+      }
       // switch to logged in ui
       document.querySelector("#loginForm").style.display = "none";
       document.querySelector("#btn-play").style.display = "block";
@@ -59,6 +62,9 @@ if (document.cookie) {
 
 // handle Play button clicked
 document.querySelector("#btn-play").addEventListener("click", (e) => {
-  console.log("works!");
-  window.location = "questions.html";
+  if(!document.cookie.includes("user=")){
+    deleteAllCookies();
+    window.location = "/";
+  }
+  window.location = "/question";
 });

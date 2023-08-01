@@ -9,7 +9,7 @@ let students = [
         questions: [
           {
             question: "what is 1+1",
-            correntCounter: 10,
+            correctCounter: 10,
             wrongCounter: 8,
           },
         ],
@@ -19,7 +19,7 @@ let students = [
         questions: [
           {
             question: "whats the temp of the sun",
-            correntCounter: 10,
+            correctCounter: 10,
             wrongCounter: 10,
           },
         ],
@@ -29,7 +29,7 @@ let students = [
         questions: [
           {
             question: "How many bones in a human?",
-            correntCounter: 22,
+            correctCounter: 22,
             wrongCounter: 11,
           },
         ],
@@ -45,7 +45,7 @@ let students = [
         questions: [
           {
             question: "what is 1+1",
-            correntCounter: 13,
+            correctCounter: 13,
             wrongCounter: 7,
           },
         ],
@@ -55,7 +55,7 @@ let students = [
         questions: [
           {
             question: "whats the temp of the sun",
-            correntCounter: 1,
+            correctCounter: 1,
             wrongCounter: 2,
           },
         ],
@@ -65,7 +65,7 @@ let students = [
         questions: [
           {
             question: "How many bones in a human?",
-            correntCounter: 2,
+            correctCounter: 2,
             wrongCounter: 8,
           },
         ],
@@ -81,7 +81,7 @@ let students = [
         questions: [
           {
             question: "what is 1+1",
-            correntCounter: 5,
+            correctCounter: 5,
             wrongCounter: 3,
           },
         ],
@@ -91,7 +91,7 @@ let students = [
         questions: [
           {
             question: "whats the temp of the sun",
-            correntCounter: 12,
+            correctCounter: 12,
             wrongCounter: 5,
           },
         ],
@@ -101,7 +101,7 @@ let students = [
         questions: [
           {
             question: "How many bones in a human?",
-            correntCounter: 8,
+            correctCounter: 8,
             wrongCounter: 12,
           },
         ],
