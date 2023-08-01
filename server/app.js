@@ -9,9 +9,9 @@ const app = express();
 const project_dir = path.join(__dirname, "..");
 const dbUtils = require("../database/index");
 
-
 app.use(cors());
 app.use(express.json());
+app.use(express.static(project_dir + "/client/res/"));
 
 // If DEBUG=TRUE then we are in development mode
 if (process.env.DEBUG === "true") {
@@ -32,6 +32,10 @@ app.get("/", (req, res) => {
   return res.sendFile(project_dir + "/client/index.html");
 });
 
+app.get("/question", (req, res) => {
+  return res.sendFile(project_dir + "/client/questions.html");
+});
+
 // user login api via their name
 app.post("/login", (req, res) => {
   const name = req.body.name;
@@ -49,13 +53,13 @@ app.post("/login", (req, res) => {
   }
 
   return res
-    .cookie("user", name, { maxAge: 900000, httpOnly: true })
+    .cookie("user", name, { maxAge: 900000, httpOnly: false })
     .json({ status: "Success", redirect: "/" })
     .send();
 });
 
 // random question api, TODO: fix question being generated 2 times in a row
-app.post("/question", (req, res) => {
+app.post("/question/random", (req, res) => {
   return res.send({ question: dbUtils.generateRandomQuestion() });
 });
 
@@ -81,11 +85,21 @@ app.post("/question/verify", (req, res) => {
   }
 
   if (correntAnswer !== answer) {
-    // possible fail/success count to username's question in stats[]
+    // TODO: increment name's wrongCounter +1
     return res.send("Incorrect!");
   }
 
+  // TODO: increment name's correctCounter +1
   return res.send("Correct!");
 });
+
+
+// TODO: calculate points of students based on all questions answered(if not answered, skip)
+// Formula: 1 point of correctCounter is +1, 1 point of wrongCounter is -0.5
+// returns an object of [{name: "studentName", points : "20pts"}, {}, {}]
+
+
+// endpoint to get the average points for all questions and calculate the average
+// return [{topic: "topicname", questions: [{}, {} , {}]}, {}, {}]
 
 module.exports = app;
