@@ -132,8 +132,7 @@ describe("POST /question/verify", () => {
 
     
 
-        const response = await request(app)
-          .post("/question/verify")
+        
           
     
     console.log(response.text)
