@@ -22,18 +22,18 @@ const shuffle = (array) => {
 };
 
 const findStudentByName = (name) => {
-  let foundStudent = students.find((student) => student.name === name);
+  let foundStudent = students.students.find((student) => student.name === name);
   return foundStudent ? foundStudent : null;
 };
 
 const findStudentBySchool = (schoolName) => {
-  return students.find((student) => student.school === schoolName);
+  return students.students.find((student) => student.school === schoolName);
 };
 
 const findBestStudent = () => {
   const studentPoints = [];
 
-  students.forEach((student) => {
+  students.students.forEach((student) => {
     let totalPoints = 0;
 
     student.stats.forEach((subject) => {
@@ -45,7 +45,6 @@ const findBestStudent = () => {
 
     studentPoints.push({ name: student.name, points: totalPoints.toFixed(2) });
   });
-
   studentPoints.sort((a, b) => b.points - a.points);
   return studentPoints;
 };

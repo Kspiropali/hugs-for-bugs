@@ -46,7 +46,7 @@ app.get("/question", (req, res) => {
 });
 
 app.get("/admin/students", (req, res) => {
-  return res.send(students);
+  return res.send(students.students);
 });
 
 app.get("/admin/questions", (req, res) => {
@@ -57,8 +57,16 @@ app.get("/admin/questions", (req, res) => {
 app.post("/login", (req, res) => {
   const name = req.body.name;
 
-  if (!name || (name.length === 0 && typeof name != String)) {
+  if (!name) {
     return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
   }
 
   let status = dbUtils.findStudentByName(name);
@@ -71,8 +79,42 @@ app.post("/login", (req, res) => {
 
   return res
     .cookie("user", name, { maxAge: 900000, httpOnly: false })
-    .json({ status: "Success", redirect: "/" })
+    .send("Logged in!")
     .send();
+});
+
+// register a non-existent student
+app.post("/register", (req, res) => {
+  const name = req.body.name;
+  console.log(typeof name);
+
+  if (!name) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  let status = dbUtils.findStudentByName(name);
+
+  if (status) {
+    return res
+      .status(403)
+      .send("Student's name already exist in the database!");
+  }
+
+  const template = structuredClone(students.studentTemplate);
+  template.name = name;
+  students.students.push(template);
+
+  return res.send(
+    "User " + name + " has been successfully added in the database!"
+  );
 });
 
 // random question api
@@ -87,18 +129,40 @@ app.post("/question/random", (req, res) => {
 app.post("/question/verify", (req, res) => {
   let { name, question, answer } = req.body;
 
-  if (!question || (question.length === 0 && typeof question !== String)) {
-    return res.status(400).send("Please provide a valid question!");
+  if (!question) {
+    return res.status(400).send("Name is needed!");
   }
 
-  if (!answer || (answer.length === 0 && typeof answer !== String)) {
-    return res
-      .status(400)
-      .send("Please provide a valid answer to the question!");
+  if (typeof question != "string") {
+    return res.status(400).send("A valid string is needed!");
   }
 
-  if (!name || (name.length === 0 && typeof name !== String)) {
-    return res.status(400).send("Please provide a valid username!");
+  if (question.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  if (!answer) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof answer != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (answer.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  if (!name) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
   }
 
   // check if name exists in database
