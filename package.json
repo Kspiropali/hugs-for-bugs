@@ -6,7 +6,10 @@
     "server",
     "server"
   ],
-  "scripts": {},
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "npx run jest"
+  },
   "author": "",
   "license": "MIT"
 }
