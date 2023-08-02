@@ -3,7 +3,7 @@ let requestOptions = {
   redirect: "follow",
 };
 
-const URL = "http://localhost:8080/";
+const URL = "https://hugs-for-bugs.onrender.com/";
 
 // cookie helper function
 function deleteAllCookies() {

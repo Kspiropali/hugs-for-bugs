@@ -2,7 +2,7 @@
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-const URL = "http://localhost:8080/";
+const URL = "https://hugs-for-bugs.onrender.com/";
 
 // update trees with student's grades
 const updateTrees = () => {
