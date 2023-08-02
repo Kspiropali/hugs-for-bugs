@@ -3,7 +3,17 @@ let requestOptions = {
   redirect: "follow",
 };
 
-// TODO; group selectors for easier read/write
+// cookie helper function
+function deleteAllCookies() {
+  const cookies = document.cookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+}
 
 fetch("http://localhost:8080/question/random", requestOptions)
   .then((response) => response.json())
@@ -55,9 +65,7 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
     .then((response) => response.text())
     .then((result) => {
       if (result === "Incorrect!") {
-        alert("Wrong answer!");
       } else if (result === "Correct!") {
-        alert("Correct!");
       } else {
         deleteAllCookies();
         window.location = "/";
@@ -72,15 +80,10 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
   // TODO: add a limit counter everytime student launches the questions page
 });
 
-// cookie helper function
-// TODO: merge common functionality with index.js & questions.js
-function deleteAllCookies() {
-  const cookies = document.cookie.split(";");
+document.querySelector("#btn-exit").addEventListener("click", () => {
+  window.onbeforeunload = function () {
+    return "Are you sure you want to leave?";
+  };
 
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i];
-    const eqPos = cookie.indexOf("=");
-    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-  }
-}
+  window.location = "/";
+});

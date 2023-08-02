@@ -137,6 +137,7 @@ ul {
   background-color: green;
   border-radius: 100% 0 100% 0;
   transform: translateY(-100%);
+  display: none;
 }
 
 .result-tree .cat-branch-l .leaf {
@@ -145,6 +146,7 @@ ul {
   background-color: green;
   border-radius: 100% 0 100% 0;
   transform: translateY(50%) rotate(90deg);
+  display: none;
 }
 
 .result-tree .cat-branch-r:hover {

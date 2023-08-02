@@ -41,12 +41,10 @@ ul li label {
 }
 
 button {
-  background-color: #091f34;
   border: none;
   color: white;
   font-family: inherit;
   font-size: 2rem;
-  width: 100%;
   padding: 1.3rem;
 }
 
@@ -54,39 +52,25 @@ button:hover {
   background-color: #11325047;
 }
 
-#logo {
-  width: 400px;
-  height: 130px;
-  top: 0;
+#btn-submit-answers {
+  background-color: #004611e6;
+  width: 48%;
+  border-radius: 1.2rem;
+}
+
+#btn-exit {
+  margin-left: 0.8rem;
+  background-color: #c00000e0;
+  width: 48%;
+  border-radius: 1.2rem;
+}
+
+.checkmark {
   position: absolute;
-  background: rgba(6, 6, 246, 0.726);
+  top: 0;
   left: 0;
-  border-radius: 1.3rem;
-}
-
-#scorebox {
-  width: 400px;
-  height: 130px;
-  top: 0;
-  position: absolute;
-  background: rgba(1, 118, 1, 0.885);
-  left: 10;
-  border-radius: 20%;
-  display: flex;
-  justify-content: center;
-  font-size: 4.3rem;
-}
-
-#homepage_redirect {
-  width: 400px;
-  height: 130px;
-  top: 0;
-  position: absolute;
-  background: #ff2020c0;
-  right: 0;
-  border-radius: 20%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  font-size: 4.3rem;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
 }

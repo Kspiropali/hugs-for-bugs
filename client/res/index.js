@@ -49,6 +49,7 @@ const updateTrees = () => {
           try {
             let result_grade = result[i].questions[j].result;
 
+            //changing color scheme based on result
             if (result_grade === "Perfect") {
               array[i][j].style.backgroundColor = "green";
             } else if (result_grade === "Normal") {
@@ -59,6 +60,10 @@ const updateTrees = () => {
               array[i][j].style.backgroundColor = "grey";
             }
 
+            // making it visible
+            array[i][j].style.display = "block";
+
+            //adding popup on mouse hover listener
             array[i][j].addEventListener("mouseenter", () => {
               const buttonRect = array[i][j].getBoundingClientRect();
               const containerRect = popupContainer.getBoundingClientRect();
@@ -74,6 +79,7 @@ const updateTrees = () => {
               popup.textContent = result[i].questions[j].question;
             });
 
+            //adding hide popup on mouse leave listener
             array[i][j].addEventListener("mouseleave", () => {
               popupContainer.style.display = "none";
               popup.style.display = "none";
