@@ -2,6 +2,8 @@
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
+const URL = "https://hugs-for-bugs.onrender.com/";
+
 // update trees with student's grades
 const updateTrees = () => {
   const name = document.cookie.split("=")[1];
@@ -16,7 +18,7 @@ const updateTrees = () => {
     body: raw,
   };
 
-  fetch("http://localhost:8080/statistics/questions", requestOptions)
+  fetch(URL+"statistics/questions", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // For the leaf popup behavior
@@ -102,7 +104,7 @@ const deleteAllCookies = () => {
   }
 };
 
-fetch("http://localhost:8080/statistics/best", { method: "POST" })
+fetch(URL+"statistics/best", { method: "POST" })
   .then((response) => response.json())
   .then((result) => {
     let leaderboard = document.querySelector("#leaderboard_data");
@@ -139,7 +141,7 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 
   requestOptions.headers.append("body", data);
 
-  fetch("http://localhost:8080/login", requestOptions)
+  fetch(URL+"login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       if (result === "Student's name does not exist in the database!") {
