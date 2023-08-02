@@ -9,8 +9,8 @@ let students = [
         questions: [
           {
             question: "what is 1+1",
-            correctCounter: 10,
-            wrongCounter: 8,
+            correctCounter: 0,
+            wrongCounter: 0,
           },
         ],
       },

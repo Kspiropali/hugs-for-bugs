@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const rateLimit = require("express-rate-limit");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -14,16 +13,24 @@ const questions = require("../database/questions");
 app.use(cors());
 app.use(express.json());
 app.use(express.static(project_dir + "/client/res/"));
+// Error-handling middleware for invalid JSON
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ error: "Malformed json body!" });
+  }
+  next();
+});
 
 // If DEBUG=TRUE then we are in development mode
 if (process.env.DEBUG === "true") {
   const logger = require("./logger");
   app.use(logger);
 } else {
+  const rateLimit = require("express-rate-limit");
   const rateLimiterUsingThirdParty = rateLimit({
-    windowMs: 60 * 1000, // 1 minute in milliseconds
-    max: 30,
-    message: "You have exceeded the 30 requests in 1 minute limit!",
+    windowMs: 60 * 1000, // 1 minute in millis
+    max: 50,
+    message: "You have exceeded the 50 requests in 1 minute limit!",
     standardHeaders: true,
     legacyHeaders: false,
   });
@@ -68,14 +75,15 @@ app.post("/login", (req, res) => {
     .send();
 });
 
-// random question api, TODO: fix question being generated 2 times in a row
+// random question api
+// TODO: fix question being generated 2 times in a row
 app.post("/question/random", (req, res) => {
   const jsonObj = dbUtils.generateRandomQuestion();
   return res.send(jsonObj);
 });
 
 // verify question api, TODO: should accept {username: username, question: question}
-// should possibly return {outcome: "false || true", answer: answer}
+// should possibly return "Incorrect|Correct" with use cases handled
 app.post("/question/verify", (req, res) => {
   let { name, question, answer } = req.body;
   console.log(req.body);
@@ -110,20 +118,36 @@ app.post("/question/verify", (req, res) => {
 
   if (correctAnswer !== answer) {
     // increment name's wrongCounter +1
-    dbUtils.changeStudentQuestionCounter(name, question, "wrong")
+    dbUtils.changeStudentQuestionCounter(name, question, "wrong");
     return res.send("Incorrect!");
   }
 
-  // TODO: increment name's correctCounter +1
-  dbUtils.changeStudentQuestionCounter(name, question, "correct")
+  // increment name's correctCounter +1
+  dbUtils.changeStudentQuestionCounter(name, question, "correct");
   return res.send("Correct!");
 });
 
-// TODO: calculate points of students based on all questions answered(if not answered, skip)
+// calculates the points of students based on all questions answered
 // Formula: 1 point of correctCounter is +1, 1 point of wrongCounter is -0.5
 // returns an object of [{name: "studentName", points : "20pts"}, {}, {}]
+app.post("/statistics/best", (req, res) => {
+  return res.send(dbUtils.findBestStudent());
+});
 
 // endpoint to get the average points for all questions and calculate the average
-// return [{topic: "topicname", questions: [{}, {} , {}]}, {}, {}]
+// return [{topic: "topicname", questions: [{question: "what is 1+1", }, {} , {}]}, {}, {}]
+app.post("/statistics/questions", (req, res) => {
+  const studentName = req.body.name;
+
+  if (
+    !studentName ||
+    studentName.length === 0 ||
+    (typeof studentName !== String && !dbUtils.findStudentByName(studentName))
+  ) {
+    return res.status(400).send("Please provide a valid student name!");
+  }
+
+  return res.send(dbUtils.getStudentData(studentName));
+});
 
 module.exports = app;
