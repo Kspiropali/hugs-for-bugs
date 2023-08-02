@@ -1,0 +1,12 @@
+{
+  "name": "hugs-for-bugs",
+  "description": "LFA project cycle 1",
+  "workspaces": [
+    "client",
+    "server",
+    "server"
+  ],
+  "scripts": {},
+  "author": "",
+  "license": "MIT"
+}

@@ -1,12 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="./styles.css" rel="stylesheet">
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="icon" type="image/gif" href="favicon.ico" />
+    <script defer type="application/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="main-box">
+      <section id="menu-section">
+        <div class="img-container">
+          <img style="visibility: hidden" src="Happy Sun.svg" alt="" />
+        </div>
+        <div id="menu">
+          <form id="loginForm">
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter your username:"
+              name="username"
+            /><br /><br />
+            <input type="submit" value="Submit" />
+          </form>
+
+          <button id="btn-play">Play the quiz</button>
+          <button id="btn-logout">Logout</button>
+          <div id="leaderboard">
+            <h2>Leaderboard</h2>
+            <ul id="leaderboard_data">
+              <li><span>Name</span><span>Score</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="img-container">
+          <img src="Happy Sun.svg" alt="smile sun" />
+        </div>
+      </section>
+      <section id="tree-section">
+        <div class="popup-container">
+          <div class="popup-content" id="popup">Popup content here</div>
+        </div>
+
+        <!----------------------------------TREE 1---------------------------------------------->
+        <div class="tree-container">
+          <h3 id="subject1"></h3>
+          <figure class="result-tree">
+            <div class="branches branches-l">
+              <div class="branch cat-branch-l" style="width: 180px">
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+              </div>
+            </div>
+            <div class="branches branches-r">
+              <div class="branch cat-branch-r" style="width: 150px">
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 200px">
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 180px">
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 130px">
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+                <span class="leaf popup-button tree1"></span>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <!------------------------------------TREE 2---------------------------------------------->
+        <div class="tree-container">
+          <h3 id="subject2"></h3>
+          <figure class="result-tree">
+            <div class="branches branches-l">
+              <div class="branch cat-branch-l" style="width: 180px">
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+              </div>
+            </div>
+            <div class="branches branches-r">
+              <div class="branch cat-branch-r" style="width: 150px">
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 200px">
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 180px">
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 130px">
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+                <span class="leaf popup-button tree2"></span>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <!---------------------------------TREE 3-------------------------------------------------- -->
+        <div class="tree-container">
+          <h3 id="subject3"></h3>
+          <figure class="result-tree">
+            <div class="branches branches-l">
+              <div class="branch cat-branch-l" style="width: 180px">
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+              </div>
+            </div>
+            <div class="branches branches-r">
+              <div class="branch cat-branch-r" style="width: 150px">
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 200px">
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 180px">
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+              </div>
+              <div class="branch cat-branch-r" style="width: 130px">
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+                <span class="leaf popup-button tree3"></span>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+      </section>
+      <div id="grass"></div>
+    </div>
+  </body>
 </html>
