@@ -65,8 +65,8 @@ let students = [
         questions: [
           {
             question: "How many bones in a human?",
-            correctCounter: 2,
-            wrongCounter: 8,
+            correctCounter: 10,
+            wrongCounter: 1,
           },
         ],
       },

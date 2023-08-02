@@ -231,13 +231,14 @@ form {
   background: #2cfa2c;
 }
 
-.popup-content::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 10px solid transparent;
-  border-bottom-color: #f9f9f9;
-  z-index: 1;
+.tree1 {
+  text-align: center;
+}
+
+.tree2 {
+  text-align: center;
+}
+
+.tree3 {
+  text-align: center;
 }
