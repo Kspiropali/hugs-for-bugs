@@ -1,113 +1,156 @@
+const questions_db = require('./questions');
+
+const student1Stats = {
+  name: "John",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
+const student2Stats = {
+  name: "Mark",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
+const student3Stats = {
+  name: "Mark",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
+const student4Stats = {
+  name: "George",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
+const student5Stats = {
+  name: "Nick",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
 // database for students
-let students = [
-  {
-    name: "Test",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 0,
-            wrongCounter: 0,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 10,
-            wrongCounter: 10,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 22,
-            wrongCounter: 11,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "John",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 13,
-            wrongCounter: 7,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 1,
-            wrongCounter: 2,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 10,
-            wrongCounter: 1,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Nick",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 5,
-            wrongCounter: 3,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 12,
-            wrongCounter: 5,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 8,
-            wrongCounter: 12,
-          },
-        ],
-      },
-    ],
-  },
-];
+let students = [student1Stats, student2Stats, student3Stats, student4Stats, student5Stats];
 
 module.exports = students;
