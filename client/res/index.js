@@ -2,7 +2,7 @@
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-const URL = "https://hugs-for-bugs.onrender.com/";
+const URL = "http://localhost:8080/";
 
 // update trees with student's grades
 const updateTrees = () => {
@@ -18,7 +18,7 @@ const updateTrees = () => {
     body: raw,
   };
 
-  fetch(URL+"statistics/questions", requestOptions)
+  fetch(URL + "statistics/questions", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // For the leaf popup behavior
@@ -104,29 +104,45 @@ const deleteAllCookies = () => {
   }
 };
 
-fetch(URL+"statistics/best", { method: "POST" })
-  .then((response) => response.json())
-  .then((result) => {
-    let leaderboard = document.querySelector("#leaderboard_data");
-    result.forEach((element) => {
-      let li = document.createElement("li");
-      let span_name = document.createElement("span");
-      let span_points = document.createElement("span");
+async function asyncLogin() {
+  deleteAllCookies();
+  let button = document.querySelector("#login_create_btn");
+  button.setAttribute("disabled", "disabled");
 
-      span_name.textContent = element.name;
-      span_points.textContent = element.points;
+  let data = JSON.stringify({
+    name: document.querySelector("#username").value,
+  });
 
-      li.append(span_name);
-      li.append(span_points);
+  let requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: data,
+    redirect: "follow",
+  };
 
-      leaderboard.append(li);
-    });
-  })
-  .catch((error) => console.log("error", error));
+  fetch(URL + "login", requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      if (result === "Student's name does not exist in the database!") {
+        button.removeAttribute("disabled");
+        button.value = "REGISTER";
+        button.backgroundColor = "green";
+        return;
+      } else if (result === "Logged in!") {
+        // switch to logged in ui
+        button.removeAttribute("disabled");
+        button.value = "LOGIN";
+        button.backgroundColor = "blue";
+        return;
+      }
+    })
+    .catch((error) => console.log("error", error));
+}
 
 // login button handler
 document.querySelector("#loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
+  let buttonValue = document.querySelector("#login_create_btn").value;
 
   let data = JSON.stringify({
     name: e.target.username.value,
@@ -141,14 +157,15 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 
   requestOptions.headers.append("body", data);
 
-  fetch(URL+"login", requestOptions)
+  if (buttonValue === "REGISTER") {
+    fetch(URL + "register", requestOptions)
+      .then((response) => response.text())
+      .catch((error) => console.log("error", error));
+  }
+
+  fetch(URL + "login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      if (result === "Student's name does not exist in the database!") {
-        alert("Wrong username!");
-        document.querySelector("#username").value = "";
-        return;
-      }
       // switch to logged in ui
       document.querySelector("#loginForm").style.display = "none";
       document.querySelector("#btn-play").style.display = "block";
@@ -180,3 +197,30 @@ if (document.cookie) {
   document.querySelector("#btn-logout").style.display = "block";
   updateTrees();
 }
+
+document.querySelector("#username").addEventListener("keyup", asyncLogin);
+
+(function () {
+  fetch(URL + "statistics/best", { method: "POST" })
+    .then((response) => response.json())
+    .then((result) => {
+      let leaderboard = document.querySelector("#leaderboard_data");
+      leaderboard.innerHTML = "";
+      result.forEach((element) => {
+        let li = document.createElement("li");
+        let span_name = document.createElement("span");
+        let span_points = document.createElement("span");
+
+        span_name.textContent = element.name;
+        span_points.textContent = element.points;
+
+        li.append(span_name);
+        li.append(span_points);
+
+        leaderboard.append(li);
+      });
+    })
+    .catch((error) => console.log("error", error));
+
+  setTimeout(arguments.callee, 200);
+})();
