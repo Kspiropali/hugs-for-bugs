@@ -104,7 +104,41 @@ const updateTrees = () => {
   };
 
   fetch("http://localhost:8080/statistics/questions", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => response.json())
+    .then((result) => {
+      // For the leaf popup behavior
+      // script.js
+      const leaves = document.querySelectorAll(".popup-button");
+      const popupContainer = document.querySelector(".popup-container");
+      const popup = document.getElementById("popup");
+      
+      // setting up subjects
+      document.querySelector("#subject1").textContent = result[0].topic;
+      document.querySelector("#subject2").textContent = result[1].topic;
+      document.querySelector("#subject3").textContent = result[2].topic;
+
+      leaves.forEach((leaf) => {
+        leaf.addEventListener("mouseenter", () => {
+          const buttonRect = leaf.getBoundingClientRect();
+          const containerRect = popupContainer.getBoundingClientRect();
+          const leftOffset =
+            buttonRect.left - containerRect.left + buttonRect.width / 1.9;
+          const topOffset = buttonRect.top - containerRect.top - 25;
+
+          popup.textContent = leaf.getAttribute("data-popup");
+          popupContainer.style.left = `${leftOffset}px`;
+          popupContainer.style.top = `${topOffset - popup.offsetHeight}px`;
+          popupContainer.style.display = "block";
+          popup.style.display = "block";
+          popup.textContent =
+            "THis is a very big question for studentaaaaa aaaaaaaaaaaaaaaaaaaas";
+        });
+
+        leaf.addEventListener("mouseleave", () => {
+          popupContainer.style.display = "none";
+          popup.style.display = "none";
+        });
+      });
+    })
     .catch((error) => console.log("error", error));
 };

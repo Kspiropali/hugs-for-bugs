@@ -89,9 +89,8 @@ li {
 }
 
 ul {
-    padding: 0;
+  padding: 0;
 }
-
 
 .result-tree {
   width: 35px;
@@ -209,4 +208,36 @@ form {
   display: flex;
   margin-bottom: 40px;
   font-size: 1.6rem;
+}
+
+/* Leaf Popup box */
+.popup-container {
+  position: absolute;
+  display: none;
+  z-index: 1;
+}
+
+.popup-content {
+  display: none;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 10px;
+  border: 5px solid #ccc;
+  border-color: #334d5685;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 10rem;
+  word-wrap: break-word;
+  background: #2cfa2c;
+}
+
+.popup-content::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid transparent;
+  border-bottom-color: #f9f9f9;
+  z-index: 1;
 }
