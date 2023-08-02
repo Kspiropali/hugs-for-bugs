@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const rateLimit = require("express-rate-limit");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -11,19 +10,33 @@ const dbUtils = require("../database/index");
 const students = require("../database/students");
 const questions = require("../database/questions");
 
-app.use(cors());
+const corsOptions = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(project_dir + "/client/res/"));
+// Error-handling middleware for invalid JSON
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ error: "Malformed json body!" });
+  }
+  next();
+});
 
 // If DEBUG=TRUE then we are in development mode
 if (process.env.DEBUG === "true") {
   const logger = require("./logger");
   app.use(logger);
 } else {
+  const rateLimit = require("express-rate-limit");
   const rateLimiterUsingThirdParty = rateLimit({
-    windowMs: 60 * 1000, // 1 minute in milliseconds
-    max: 30,
-    message: "You have exceeded the 30 requests in 1 minute limit!",
+    windowMs: 60 * 1000, // 1 minute in millis
+    max: 50,
+    message: "You have exceeded the 50 requests in 1 minute limit!",
     standardHeaders: true,
     legacyHeaders: false,
   });
@@ -39,7 +52,7 @@ app.get("/question", (req, res) => {
 });
 
 app.get("/admin/students", (req, res) => {
-  return res.send(students);
+  return res.send(students.students);
 });
 
 app.get("/admin/questions", (req, res) => {
@@ -50,55 +63,119 @@ app.get("/admin/questions", (req, res) => {
 app.post("/login", (req, res) => {
   const name = req.body.name;
 
-  if (!name || (name.length === 0 && typeof name != String)) {
+  if (!name) {
     return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
   }
 
   let status = dbUtils.findStudentByName(name);
 
   if (!status) {
     return res
-      .status(401)
+      // .status(401)
       .send("Student's name does not exist in the database!");
   }
 
   return res
     .cookie("user", name, { maxAge: 900000, httpOnly: false })
-    .json({ status: "Success", redirect: "/" })
+    .send("Logged in!")
     .send();
 });
 
-// random question api, TODO: fix question being generated 2 times in a row
+// register a non-existent student
+app.post("/register", (req, res) => {
+  const name = req.body.name;
+  console.log(typeof name);
+
+  if (!name) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  let status = dbUtils.findStudentByName(name);
+
+  if (status) {
+    return res
+      .status(403)
+      .send("Student's name already exist in the database!");
+  }
+
+  const template = structuredClone(students.studentTemplate);
+  template.name = name;
+  students.students.push(template);
+
+  return res.send(
+    "User " + name + " has been successfully added in the database!"
+  );
+});
+
+// random question api
+// TODO: fix question being generated 2 times in a row
 app.post("/question/random", (req, res) => {
   const jsonObj = dbUtils.generateRandomQuestion();
   return res.send(jsonObj);
 });
 
 // verify question api, TODO: should accept {username: username, question: question}
-// should possibly return {outcome: "false || true", answer: answer}
+// should possibly return "Incorrect|Correct" with use cases handled
 app.post("/question/verify", (req, res) => {
   let { name, question, answer } = req.body;
-  console.log(req.body);
 
-  if (!question || (question.length === 0 && typeof question !== String)) {
-    return res.status(400).send("Please provide a valid question!");
+  if (!question) {
+    return res.status(400).send("Name is needed!");
   }
 
-  if (!answer || (answer.length === 0 && typeof answer !== String)) {
-    return res
-      .status(400)
-      .send("Please provide a valid answer to the question!");
+  if (typeof question != "string") {
+    return res.status(400).send("A valid string is needed!");
   }
 
-  if (!name || (name.length === 0 && typeof name !== String)) {
-    return res.status(400).send("Please provide a valid username!");
+  if (question.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  if (!answer) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof answer != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (answer.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
+  }
+
+  if (!name) {
+    return res.status(400).send("Name is needed!");
+  }
+
+  if (typeof name != "string") {
+    return res.status(400).send("A valid string is needed!");
+  }
+
+  if (name.length === 0) {
+    return res.status(400).send("Please enter a valid name!");
   }
 
   // check if name exists in database
   let status = dbUtils.findStudentByName(name);
   if (!status) {
     return res
-      .status(401)
+      // .status(401)
       .send("Student's name does not exist in the database!");
   }
 
@@ -110,20 +187,36 @@ app.post("/question/verify", (req, res) => {
 
   if (correctAnswer !== answer) {
     // increment name's wrongCounter +1
-    dbUtils.changeStudentQuestionCounter(name, question, "wrong")
+    dbUtils.changeStudentQuestionCounter(name, question, "wrong");
     return res.send("Incorrect!");
   }
 
-  // TODO: increment name's correctCounter +1
-  dbUtils.changeStudentQuestionCounter(name, question, "correct")
+  // increment name's correctCounter +1
+  dbUtils.changeStudentQuestionCounter(name, question, "correct");
   return res.send("Correct!");
 });
 
-// TODO: calculate points of students based on all questions answered(if not answered, skip)
+// calculates the points of students based on all questions answered
 // Formula: 1 point of correctCounter is +1, 1 point of wrongCounter is -0.5
 // returns an object of [{name: "studentName", points : "20pts"}, {}, {}]
+app.post("/statistics/best", (req, res) => {
+  return res.send(dbUtils.findBestStudent());
+});
 
 // endpoint to get the average points for all questions and calculate the average
-// return [{topic: "topicname", questions: [{}, {} , {}]}, {}, {}]
+// return [{topic: "topicname", questions: [{question: "what is 1+1", }, {} , {}]}, {}, {}]
+app.post("/statistics/questions", (req, res) => {
+  const studentName = req.body.name;
+
+  if (
+    !studentName ||
+    studentName.length === 0 ||
+    (typeof studentName !== String && !dbUtils.findStudentByName(studentName))
+  ) {
+    return res.status(400).send("Please provide a valid student name!");
+  }
+
+  return res.send(dbUtils.getStudentData(studentName));
+});
 
 module.exports = app;

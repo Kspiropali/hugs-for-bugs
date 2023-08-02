@@ -22,16 +22,31 @@ const shuffle = (array) => {
 };
 
 const findStudentByName = (name) => {
-  let foundStudent = students.find((student) => student.name === name);
+  let foundStudent = students.students.find((student) => student.name === name);
   return foundStudent ? foundStudent : null;
 };
 
 const findStudentBySchool = (schoolName) => {
-  return students.find((student) => student.school === schoolName);
+  return students.students.find((student) => student.school === schoolName);
 };
 
 const findBestStudent = () => {
-  // TODO: decide on a stats object layout
+  const studentPoints = [];
+
+  students.students.forEach((student) => {
+    let totalPoints = 0;
+
+    student.stats.forEach((subject) => {
+      subject.questions.forEach((question) => {
+        totalPoints += question.correctCounter;
+        totalPoints -= question.wrongCounter * 0.5;
+      });
+    });
+
+    studentPoints.push({ name: student.name, points: totalPoints.toFixed(2) });
+  });
+  studentPoints.sort((a, b) => b.points - a.points);
+  return studentPoints;
 };
 
 const findQuestionsByTopic = (topic) => {
@@ -92,6 +107,43 @@ const changeStudentQuestionCounter = (studentName, question, counter) => {
   }
 };
 
+const getStudentData = (studentName) => {
+  const student = findStudentByName(studentName);
+  if (!student) {
+    return null;
+  }
+
+  const result = student.stats.map((stat) => {
+    const questions = stat.questions.map((question) => {
+      if (question.correctCounter + question.wrongCounter === 0) {
+        return {
+          question: question.question,
+          result: "Skipped",
+        };
+      }
+
+      const percentage =
+        (question.correctCounter /
+          (question.wrongCounter + question.correctCounter)) *
+        100;
+
+      const result =
+        percentage >= 70 ? "Perfect" : percentage > 40 ? "Normal" : "Bad";
+
+      return {
+        question: question.question,
+        result: result,
+      };
+    });
+    return {
+      topic: stat.topic,
+      questions: questions,
+    };
+  });
+
+  return result;
+};
+
 module.exports = {
   findStudentByName,
   findStudentBySchool,
@@ -100,4 +152,6 @@ module.exports = {
   findAnswerByQuestion,
   generateRandomQuestion,
   changeStudentQuestionCounter,
+  findBestStudent,
+  getStudentData,
 };

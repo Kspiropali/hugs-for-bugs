@@ -1,113 +1,36 @@
-// database for students
-let students = [
-  {
-    name: "Test",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 10,
-            wrongCounter: 8,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 10,
-            wrongCounter: 10,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 22,
-            wrongCounter: 11,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "John",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 13,
-            wrongCounter: 7,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 1,
-            wrongCounter: 2,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 2,
-            wrongCounter: 8,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Nick",
-    school: "LFA",
-    stats: [
-      {
-        topic: "maths",
-        questions: [
-          {
-            question: "what is 1+1",
-            correctCounter: 5,
-            wrongCounter: 3,
-          },
-        ],
-      },
-      {
-        topic: "physics",
-        questions: [
-          {
-            question: "whats the temp of the sun",
-            correctCounter: 12,
-            wrongCounter: 5,
-          },
-        ],
-      },
-      {
-        topic: "biology",
-        questions: [
-          {
-            question: "How many bones in a human?",
-            correctCounter: 8,
-            wrongCounter: 12,
-          },
-        ],
-      },
-    ],
-  },
-];
+const questions_db = require("./questions");
 
-module.exports = students;
+let studentTemplate = {
+  name: "",
+  stats: [
+    {
+      topic: "music",
+      questions: questions_db[0].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "art",
+      questions: questions_db[1].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+    {
+      topic: "history",
+      questions: questions_db[2].questions.map((question) => ({
+        question: question.question,
+        correctCounter: 0,
+        wrongCounter: 0,
+      })),
+    },
+  ],
+};
+
+// database for students
+let students = [];
+
+module.exports = { students, studentTemplate };
