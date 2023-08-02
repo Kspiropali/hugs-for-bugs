@@ -3,8 +3,6 @@ let requestOptions = {
   redirect: "follow",
 };
 
-const URL = "https://hugs-for-bugs.onrender.com/";
-
 // cookie helper function
 function deleteAllCookies() {
   const cookies = document.cookie.split(";");
@@ -17,7 +15,7 @@ function deleteAllCookies() {
   }
 }
 
-fetch(URL+"question/random", requestOptions)
+fetch("/question/random", requestOptions)
   .then((response) => response.json())
   .then((result) => {
     // question
@@ -63,7 +61,7 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
     redirect: "follow",
   };
 
-  fetch(URL+"question/verify", requestOptions)
+  fetch("/question/verify", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       if (result === "Incorrect!") {
@@ -74,7 +72,6 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
       }
     })
     .catch((error) => {
-      alert("Server is offline!");
       window.location = "/";
     });
 

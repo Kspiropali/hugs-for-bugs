@@ -50,11 +50,15 @@ button {
   display: none;
 }
 
+#login_create_btn {
+  width: 10rem;
+}
+
 #leaderboard {
   border: 1px solid black;
   padding: 20px;
   max-width: 500px;
-  width: 100%;
+  width: 29rem;
 }
 
 #leaderboard h2 {
@@ -80,6 +84,7 @@ button {
 
 .tree-container h3 {
   text-align: center;
+  text-transform: uppercase;
 }
 
 li {

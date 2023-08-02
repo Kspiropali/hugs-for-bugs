@@ -1,8 +1,7 @@
 // global headers for all requests
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-
-const URL = "https://hugs-for-bugs.onrender.com/";
+const nameRegex = /^[a-zA-Z\-]+$/;
 
 // update trees with student's grades
 const updateTrees = () => {
@@ -13,12 +12,13 @@ const updateTrees = () => {
   });
 
   var requestOptions = {
+    credentials: 'include',
     method: "POST",
     headers: myHeaders,
     body: raw,
   };
 
-  fetch(URL + "statistics/questions", requestOptions)
+  fetch("/statistics/questions", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // For the leaf popup behavior
@@ -104,35 +104,46 @@ const deleteAllCookies = () => {
   }
 };
 
-async function asyncLogin() {
+async function asyncLogin(e) {
+  e.preventDefault();
   deleteAllCookies();
   let button = document.querySelector("#login_create_btn");
-  button.setAttribute("disabled", "disabled");
+  let name = document.querySelector("#username").value;
+
+  
+
+  if (!name || !nameRegex.test(name)) {
+    button.value = "NO!";
+    button.style.background = "red";
+    button.setAttribute("disabled", "disabled");
+    return;
+  }
 
   let data = JSON.stringify({
-    name: document.querySelector("#username").value,
+    name,
   });
 
   let requestOptions = {
     method: "POST",
+    credentials: 'include',
     headers: myHeaders,
     body: data,
     redirect: "follow",
   };
 
-  fetch(URL + "login", requestOptions)
+  fetch("/login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       if (result === "Student's name does not exist in the database!") {
         button.removeAttribute("disabled");
         button.value = "REGISTER";
-        button.backgroundColor = "green";
+        button.style.backgroundColor = "green";
         return;
       } else if (result === "Logged in!") {
         // switch to logged in ui
         button.removeAttribute("disabled");
         button.value = "LOGIN";
-        button.backgroundColor = "blue";
+        button.style.backgroundColor = "blue";
         return;
       }
     })
@@ -149,6 +160,7 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
   });
 
   let requestOptions = {
+    credentials: 'include',
     method: "POST",
     headers: myHeaders,
     body: data,
@@ -158,12 +170,12 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
   requestOptions.headers.append("body", data);
 
   if (buttonValue === "REGISTER") {
-    fetch(URL + "register", requestOptions)
+    fetch("/register", requestOptions)
       .then((response) => response.text())
       .catch((error) => console.log("error", error));
   }
 
-  fetch(URL + "login", requestOptions)
+  fetch("/login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       // switch to logged in ui
@@ -201,7 +213,7 @@ if (document.cookie) {
 document.querySelector("#username").addEventListener("keyup", asyncLogin);
 
 (function () {
-  fetch(URL + "statistics/best", { method: "POST" })
+  fetch("/statistics/best", { method: "POST" })
     .then((response) => response.json())
     .then((result) => {
       let leaderboard = document.querySelector("#leaderboard_data");
@@ -222,5 +234,5 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
     })
     .catch((error) => console.log("error", error));
 
-  setTimeout(arguments.callee, 200);
+  setTimeout(arguments.callee, 250);
 })();

@@ -10,7 +10,13 @@ const dbUtils = require("../database/index");
 const students = require("../database/students");
 const questions = require("../database/questions");
 
-app.use(cors());
+const corsOptions = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(project_dir + "/client/res/"));
 // Error-handling middleware for invalid JSON
@@ -73,7 +79,7 @@ app.post("/login", (req, res) => {
 
   if (!status) {
     return res
-      .status(401)
+      // .status(401)
       .send("Student's name does not exist in the database!");
   }
 
@@ -169,7 +175,7 @@ app.post("/question/verify", (req, res) => {
   let status = dbUtils.findStudentByName(name);
   if (!status) {
     return res
-      .status(401)
+      // .status(401)
       .send("Student's name does not exist in the database!");
   }
 
