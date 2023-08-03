@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(12 30 59);
+  /*background-color: rgb(12 30 59);*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,9 +60,9 @@ ul li label {
   cursor: pointer;
 }
 
-#btn-container #btn-submit-answers:hover {
-  background-color: #1928c9e6;
-}
+/*#btn-container #btn-submit-answers:hover {*/
+/*  background-color: #1928c9e6;*/
+/*}*/
 
 #btn-container #btn-exit:hover {
   background-color: #ff0707c5;

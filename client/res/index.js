@@ -220,10 +220,10 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
       }
 
       let leaderboard = document.querySelector("#leaderboard_data");
-      leaderboard.innerHTML = "<li><span>Name</span><span>Score</span></li>";
+      leaderboard.innerHTML = "";
 
       result.forEach((element) => {
-        let _ = leaderboard_users.includes(result) ? 0 : leaderboard_users.push(result);
+        leaderboard_users.includes(result) ? 0 : leaderboard_users.push(result);
         let li = document.createElement("li");
         let span_name = document.createElement("span");
         let span_points = document.createElement("span");

@@ -75,8 +75,7 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
             window.location = "/";
         });
 
-    window.location = "/question";
-    // TODO: add a limit counter everytime student launches the questions page
+    //window.location = "/question";
 });
 
 document.querySelector("#btn-exit").addEventListener("click", () => {
