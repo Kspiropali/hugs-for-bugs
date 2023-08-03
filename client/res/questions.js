@@ -15,7 +15,7 @@ function deleteAllCookies() {
   }
 }
 
-fetch("http://localhost:8080/question/random", requestOptions)
+fetch("/question/random", requestOptions)
   .then((response) => response.json())
   .then((result) => {
     // question
@@ -61,7 +61,7 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8080/question/verify", requestOptions)
+  fetch("/question/verify", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       if (result === "Incorrect!") {
@@ -72,7 +72,6 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
       }
     })
     .catch((error) => {
-      alert("Server is offline!");
       window.location = "/";
     });
 

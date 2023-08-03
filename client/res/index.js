@@ -1,6 +1,8 @@
 // global headers for all requests
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
+const nameRegex = /^[a-zA-Z\-]+$/;
+let leaderboard_users = [];
 
 // update trees with student's grades
 const updateTrees = () => {
@@ -11,12 +13,13 @@ const updateTrees = () => {
   });
 
   var requestOptions = {
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: raw,
   };
 
-  fetch("http://localhost:8080/statistics/questions", requestOptions)
+  fetch("/statistics/questions", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // For the leaf popup behavior
@@ -102,35 +105,61 @@ const deleteAllCookies = () => {
   }
 };
 
-fetch("http://localhost:8080/statistics/best", { method: "POST" })
-  .then((response) => response.json())
-  .then((result) => {
-    let leaderboard = document.querySelector("#leaderboard_data");
-    result.forEach((element) => {
-      let li = document.createElement("li");
-      let span_name = document.createElement("span");
-      let span_points = document.createElement("span");
+async function asyncLogin(e) {
+  e.preventDefault();
+  deleteAllCookies();
+  let button = document.querySelector("#login_create_btn");
+  let name = document.querySelector("#username").value;
 
-      span_name.textContent = element.name;
-      span_points.textContent = element.points;
+  if (!name || !nameRegex.test(name)) {
+    button.value = "NO!";
+    button.style.background = "red";
+    button.setAttribute("disabled", "disabled");
+    return;
+  }
 
-      li.append(span_name);
-      li.append(span_points);
+  let data = JSON.stringify({
+    name,
+  });
 
-      leaderboard.append(li);
-    });
-  })
-  .catch((error) => console.log("error", error));
+  let requestOptions = {
+    method: "POST",
+    credentials: "include",
+    headers: myHeaders,
+    body: data,
+    redirect: "follow",
+  };
+
+  fetch("/login", requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      if (result === "Student's name does not exist in the database!") {
+        button.removeAttribute("disabled");
+        button.value = "REGISTER";
+        button.style.backgroundColor = "green";
+        return;
+      } else if (result === "Logged in!") {
+        // switch to logged in ui
+        button.removeAttribute("disabled");
+        button.value = "LOGIN";
+        button.style.backgroundColor = "blue";
+        return;
+      }
+    })
+    .catch((error) => console.log("error", error));
+}
 
 // login button handler
 document.querySelector("#loginForm").addEventListener("submit", (e) => {
   e.preventDefault();
+  let buttonValue = document.querySelector("#login_create_btn").value;
 
   let data = JSON.stringify({
     name: e.target.username.value,
   });
 
   let requestOptions = {
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: data,
@@ -139,14 +168,15 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 
   requestOptions.headers.append("body", data);
 
-  fetch("http://localhost:8080/login", requestOptions)
+  if (buttonValue === "REGISTER") {
+    fetch("/register", requestOptions)
+      .then((response) => response.text())
+      .catch((error) => console.log("error", error));
+  }
+
+  fetch("/login", requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      if (result === "Student's name does not exist in the database!") {
-        alert("Wrong username!");
-        document.querySelector("#username").value = "";
-        return;
-      }
       // switch to logged in ui
       document.querySelector("#loginForm").style.display = "none";
       document.querySelector("#btn-play").style.display = "block";
@@ -178,3 +208,38 @@ if (document.cookie) {
   document.querySelector("#btn-logout").style.display = "block";
   updateTrees();
 }
+
+document.querySelector("#username").addEventListener("keyup", asyncLogin);
+
+(function () {
+  fetch("/statistics/best", { method: "POST" })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.length === 0) {
+        return;
+      } else if (result.length === leaderboard_users.length) {
+        return;
+      }
+
+      let leaderboard = document.querySelector("#leaderboard_data");
+      leaderboard.innerHTML = "<li><span>Name</span><span>Score</span></li>";
+
+      result.forEach((element) => {
+        leaderboard_users.includes(result) ? 0 : leaderboard_users.push(result);
+        let li = document.createElement("li");
+        let span_name = document.createElement("span");
+        let span_points = document.createElement("span");
+
+        span_name.textContent = element.name;
+        span_points.textContent = element.points;
+
+        li.append(span_name);
+        li.append(span_points);
+
+        leaderboard.append(li);
+      });
+    })
+    .catch((error) => console.log("error", error));
+
+  setTimeout(arguments.callee, 400);
+})();
