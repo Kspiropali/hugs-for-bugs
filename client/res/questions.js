@@ -74,8 +74,19 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
         .catch(() => {
             window.location = "/";
         });
+    fetch("/question/random", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            // question
+            document.querySelector("#question_text").textContent = result.question;
 
-    //window.location = "/question";
+            // answers
+            document.querySelector("#answer1_text").textContent = result.answers[0];
+            document.querySelector("#answer2_text").textContent = result.answers[1];
+            document.querySelector("#answer3_text").textContent = result.answers[2];
+            document.querySelector("#answer4_text").textContent = result.answers[3];
+        })
+        .catch((error) => console.log("error", error));
 });
 
 document.querySelector("#btn-exit").addEventListener("click", () => {

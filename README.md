@@ -166,13 +166,28 @@ npm run test
   // resources can the be accessed normally via the server's url
   // http://localhost:8080/image.png
   ```
+  
+- In cases where we have multiple checks for the json key-value pair, in order to properly test the backend api, we should progressively
+  create alternative json files with valid most key-value pairs and the remaining invalid. For example:
+
+  ```javascript
+    // valid.json
+    let partiallyValid = {
+        question: "Which band released the album 'Dark Side of the Moon'?",
+        answer: "Pink Floyd",
+        name: 123
+    }
+  ```
+- In this case, if we want to check if the name key-value was checked properly, we would need to provide valid question & answer
+  key-value pairs, or otherwise the backend would reply with 400 Bad Request, but without checking the actual name key-value pair.
+  
 
 # Authors
 
 **👤 Kristian Spiropali, 👤 Balram Singh, 👤 Valentin Abrutin**
 
 - GitHub: [@kspiropali](https://github.com/kspiropali)
-- GitHub: [@bobzilla1202](https://github.com/bobzilla1202)
+- GitHub: [@bobzila1202](https://github.com/bobzila1202)
 - GitHub: [@valentin-ab](https://github.com/valentin-ab)
 
 # 🤝 Contributing
@@ -184,6 +199,6 @@ the [contributing guide](CONTRIBUTING.md).
 # 📝 License
 
 Copyright ©
-2023 [Kristian Spiropali(Kspiropali), Balram Singh(bobzilla1202), Valentin Abrutin(valentin-ab)](https://github.com/kspiropali).<br />
+2023 [Kristian Spiropali(Kspiropali), Balram Singh(bobzila1202), Valentin Abrutin(valentin-ab)](https://github.com/kspiropali).<br />
 This project
 is [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) licensed.
