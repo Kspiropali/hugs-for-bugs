@@ -4,7 +4,7 @@
   "description": "A database like storage used to store data for the backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest index.test.js"
   },
   "keywords": [
     "database",
@@ -12,5 +12,9 @@
     "persistent"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3"
+  }
 }
