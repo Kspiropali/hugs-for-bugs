@@ -5,6 +5,9 @@ body {
   align-items: center;
   width: 100vw;
   height: 100dvh;
+  background-image: url(./question-frame.svg);
+  background-position: center;
+  background-size: cover;
 }
 
 .quiz-container {
@@ -15,7 +18,7 @@ body {
   width: 750px;
   margin: 30px;
   padding: 4rem;
-  background: radial-gradient(circle, rgb(0 42 255) 0%, rgb(76 135 231) 100%);
+  background: radial-gradient(circle, rgb(8 139 0) 0%, rgb(23 87 51) 100%);
 }
 
 h2 {
@@ -54,11 +57,19 @@ ul li label {
 }
 
 #btn-container button:hover {
-  background-color: #11325047;
+  cursor: pointer;
+}
+
+#btn-container #btn-submit-answers:hover {
+  background-color: #1928c9e6;
+}
+
+#btn-container #btn-exit:hover {
+  background-color: #ff0707c5;
 }
 
 #btn-submit-answers {
-  background-color: #004611e6;
+  background-color: #101b91e6;
   border-radius: 1.2rem;
 }
 
