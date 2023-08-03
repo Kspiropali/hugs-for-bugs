@@ -2,17 +2,18 @@
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 const nameRegex = /^[a-zA-Z\-]+$/;
+let leaderboard_users = [];
 
 // update trees with student's grades
 const updateTrees = () => {
   const name = document.cookie.split("=")[1];
 
-  var raw = JSON.stringify({
+  let raw = JSON.stringify({
     name,
   });
 
-  var requestOptions = {
-    credentials: 'include',
+  let requestOptions = {
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: raw,
@@ -70,7 +71,7 @@ const updateTrees = () => {
               const buttonRect = array[i][j].getBoundingClientRect();
               const containerRect = popupContainer.getBoundingClientRect();
               const leftOffset =
-                buttonRect.left - containerRect.left + buttonRect.width / 1.9;
+                buttonRect.left - containerRect.left + buttonRect.width / 1.9 + 20;
               const topOffset = buttonRect.top - containerRect.top - 25;
 
               popup.textContent = array[i][j].getAttribute("data-popup");
@@ -94,12 +95,12 @@ const updateTrees = () => {
 
 // cookie helper function
 const deleteAllCookies = () => {
-  const cookies = document.cookie.split(";");
+  let cookies = document.cookie.split(";");
 
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i];
     const eqPos = cookie.indexOf("=");
-    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    const name = eqPos > -1 ? cookie.slice(0, eqPos) : cookie;
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
   }
 };
@@ -109,8 +110,6 @@ async function asyncLogin(e) {
   deleteAllCookies();
   let button = document.querySelector("#login_create_btn");
   let name = document.querySelector("#username").value;
-
-  
 
   if (!name || !nameRegex.test(name)) {
     button.value = "NO!";
@@ -125,7 +124,7 @@ async function asyncLogin(e) {
 
   let requestOptions = {
     method: "POST",
-    credentials: 'include',
+    credentials: "include",
     headers: myHeaders,
     body: data,
     redirect: "follow",
@@ -138,13 +137,11 @@ async function asyncLogin(e) {
         button.removeAttribute("disabled");
         button.value = "REGISTER";
         button.style.backgroundColor = "green";
-        return;
       } else if (result === "Logged in!") {
         // switch to logged in ui
         button.removeAttribute("disabled");
         button.value = "LOGIN";
         button.style.backgroundColor = "blue";
-        return;
       }
     })
     .catch((error) => console.log("error", error));
@@ -160,7 +157,7 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
   });
 
   let requestOptions = {
-    credentials: 'include',
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: data,
@@ -177,7 +174,7 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 
   fetch("/login", requestOptions)
     .then((response) => response.text())
-    .then((result) => {
+    .then(() => {
       // switch to logged in ui
       document.querySelector("#loginForm").style.display = "none";
       document.querySelector("#btn-play").style.display = "block";
@@ -188,13 +185,13 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
 });
 
 // logout button handler
-document.querySelector("#btn-logout").addEventListener("click", (e) => {
+document.querySelector("#btn-logout").addEventListener("click", () => {
   deleteAllCookies();
   window.location.reload();
 });
 
 // handle Play button clicked
-document.querySelector("#btn-play").addEventListener("click", (e) => {
+document.querySelector("#btn-play").addEventListener("click", () => {
   if (!document.cookie.includes("user=")) {
     deleteAllCookies();
     window.location = "/";
@@ -216,9 +213,17 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
   fetch("/statistics/best", { method: "POST" })
     .then((response) => response.json())
     .then((result) => {
+      if (result.length === 0) {
+        return;
+      } else if (result.length === leaderboard_users.length) {
+        return;
+      }
+
       let leaderboard = document.querySelector("#leaderboard_data");
       leaderboard.innerHTML = "";
+
       result.forEach((element) => {
+        leaderboard_users.includes(result) ? 0 : leaderboard_users.push(result);
         let li = document.createElement("li");
         let span_name = document.createElement("span");
         let span_points = document.createElement("span");
@@ -234,5 +239,64 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
     })
     .catch((error) => console.log("error", error));
 
-  setTimeout(arguments.callee, 250);
+  setTimeout(arguments.callee, 400);
 })();
+
+
+// Slider functionality
+
+// Array of trees
+const trees = document.querySelectorAll(".tree-container");
+
+// Index counter
+let currentIndex = 0;
+
+// Left button
+document.querySelectorAll(".btn-slider")[0].addEventListener("click", () => slider("left"));
+
+// Right button
+document.querySelectorAll(".btn-slider")[1].addEventListener("click", () => slider("right"));
+
+// Slider function
+function slider(direction) {
+
+  if (direction === "left") {
+    trees[currentIndex].classList.toggle("hidden-element");
+
+    if (currentIndex === 0) {
+      trees[trees.length - 1].classList.toggle("hidden-element");
+      currentIndex = trees.length - 1;
+    } else {
+      trees[currentIndex - 1].classList.toggle("hidden-element");
+      currentIndex--;
+    }
+  }
+  else if (direction === "right") {
+    trees[currentIndex].classList.toggle("hidden-element");
+
+    if (currentIndex === trees.length - 1) {
+      trees[0].classList.toggle("hidden-element");
+      currentIndex = 0;
+    } else {
+      trees[currentIndex + 1].classList.toggle("hidden-element");
+      currentIndex++;
+    }
+  }
+}
+
+// Start of stop slider on certain window width
+window.addEventListener("resize", toggleSlider);
+window.addEventListener("load", toggleSlider);
+
+function toggleSlider() {
+  if (window.innerWidth < 1171 && !trees[0].classList.contains("hidden-element")) {
+    for(let i = 1; i < trees.length; i++) {
+      trees[i].classList.add("hidden-element");
+    }
+  }
+  if (window.innerWidth > 1170) {
+    for(let i = 0; i < trees.length; i++) {
+      trees[i].classList.remove("hidden-element");
+    }
+  }
+}
