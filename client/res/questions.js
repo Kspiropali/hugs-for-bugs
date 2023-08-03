@@ -35,12 +35,16 @@ document.querySelector("#btn-submit-answers").addEventListener("click", (e) => {
 
     if (document.querySelector("#answer1").checked) {
         studentAnswer = document.querySelector("#answer1_text").textContent;
+        document.querySelector("#answer1").checked = false;
     } else if (document.querySelector("#answer2").checked) {
         studentAnswer = document.querySelector("#answer2_text").textContent;
+        document.querySelector("#answer2").checked = false;
     } else if (document.querySelector("#answer3").checked) {
         studentAnswer = document.querySelector("#answer3_text").textContent;
+        document.querySelector("#answer3").checked = false;
     } else if (document.querySelector("#answer4").checked) {
         studentAnswer = document.querySelector("#answer4_text").textContent;
+        document.querySelector("#answer4").checked = false;
     } else {
         return;
     }
