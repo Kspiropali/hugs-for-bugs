@@ -2,6 +2,7 @@
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 const nameRegex = /^[a-zA-Z\-]+$/;
+let leaderboard_users = [];
 
 // update trees with student's grades
 const updateTrees = () => {
@@ -12,7 +13,7 @@ const updateTrees = () => {
   });
 
   var requestOptions = {
-    credentials: 'include',
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: raw,
@@ -110,8 +111,6 @@ async function asyncLogin(e) {
   let button = document.querySelector("#login_create_btn");
   let name = document.querySelector("#username").value;
 
-  
-
   if (!name || !nameRegex.test(name)) {
     button.value = "NO!";
     button.style.background = "red";
@@ -125,7 +124,7 @@ async function asyncLogin(e) {
 
   let requestOptions = {
     method: "POST",
-    credentials: 'include',
+    credentials: "include",
     headers: myHeaders,
     body: data,
     redirect: "follow",
@@ -160,7 +159,7 @@ document.querySelector("#loginForm").addEventListener("submit", (e) => {
   });
 
   let requestOptions = {
-    credentials: 'include',
+    credentials: "include",
     method: "POST",
     headers: myHeaders,
     body: data,
@@ -216,9 +215,17 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
   fetch("/statistics/best", { method: "POST" })
     .then((response) => response.json())
     .then((result) => {
+      if (result.length === 0) {
+        return;
+      } else if (result.length === leaderboard_users.length) {
+        return;
+      }
+
       let leaderboard = document.querySelector("#leaderboard_data");
-      leaderboard.innerHTML = "";
+      leaderboard.innerHTML = "<li><span>Name</span><span>Score</span></li>";
+
       result.forEach((element) => {
+        leaderboard_users.includes(result) ? 0 : leaderboard_users.push(result);
         let li = document.createElement("li");
         let span_name = document.createElement("span");
         let span_points = document.createElement("span");
@@ -234,5 +241,5 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
     })
     .catch((error) => console.log("error", error));
 
-  setTimeout(arguments.callee, 250);
+  setTimeout(arguments.callee, 400);
 })();

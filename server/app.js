@@ -34,8 +34,8 @@ if (process.env.DEBUG === "true") {
 } else {
   const rateLimit = require("express-rate-limit");
   const rateLimiterUsingThirdParty = rateLimit({
-    windowMs: 60 * 1000, // 1 minute in millis
-    max: 50,
+    windowMs: 30 * 1000, // half a minute in millis
+    max: 1000,
     message: "You have exceeded the 50 requests in 1 minute limit!",
     standardHeaders: true,
     legacyHeaders: false,
@@ -71,10 +71,6 @@ app.post("/login", (req, res) => {
     return res.status(400).send("A valid string is needed!");
   }
 
-  if (name.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
-  }
-
   let status = dbUtils.findStudentByName(name);
 
   if (!status) {
@@ -101,11 +97,7 @@ app.post("/register", (req, res) => {
   if (typeof name != "string") {
     return res.status(400).send("A valid string is needed!");
   }
-
-  if (name.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
-  }
-
+  
   let status = dbUtils.findStudentByName(name);
 
   if (status) {
@@ -143,10 +135,6 @@ app.post("/question/verify", (req, res) => {
     return res.status(400).send("A valid string is needed!");
   }
 
-  if (question.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
-  }
-
   if (!answer) {
     return res.status(400).send("Name is needed!");
   }
@@ -155,20 +143,12 @@ app.post("/question/verify", (req, res) => {
     return res.status(400).send("A valid string is needed!");
   }
 
-  if (answer.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
-  }
-
   if (!name) {
     return res.status(400).send("Name is needed!");
   }
 
   if (typeof name != "string") {
     return res.status(400).send("A valid string is needed!");
-  }
-
-  if (name.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
   }
 
   // check if name exists in database

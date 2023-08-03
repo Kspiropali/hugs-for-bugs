@@ -17,7 +17,8 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-rate-limit": "^6.8.1",
-    "logger": "^0.0.1"
+    "logger": "^0.0.1",
+    "run": "^1.4.0"
   },
   "devDependencies": {
     "jest": "^29.6.2",
