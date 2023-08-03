@@ -27,9 +27,9 @@
 
 ## 📷 [Screenshots]()
 
-<img alt="pre login homepage" width="900px" height="500px" src="pictures/pre-login.png" />
-<img alt="post login homepage" width="900px" height="500px" src="pictures/post-login.png" />
-<img alt="question page" width="900px" height="500px" src="pictures/quizlet.png" />
+<img alt="pre login homepage" width="900px" height="500px" src="pictures/prelogin.png" />
+<img alt="post login homepage" width="900px" height="500px" src="pictures/postlogin.png" />
+<img alt="question page" width="900px" height="500px" src="pictures/quizzlet.png" />
 
 ## Prerequisites
 
