@@ -33,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: https://hub.docker.com/${{ secrets.DOCKER_USERNAME }}/hugs-for-bugs:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/hugs-for-bugs:latest
