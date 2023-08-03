@@ -136,7 +136,7 @@ app.post("/question/verify", (req, res) => {
   let { name, question, answer } = req.body;
 
   if (!question) {
-    return res.status(400).send("Name is needed!");
+    return res.status(400).send("Question does not exist!");
   }
 
   if (typeof question != "string") {
@@ -144,11 +144,11 @@ app.post("/question/verify", (req, res) => {
   }
 
   if (question.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
+    return res.status(400).send("Question is empty!");
   }
 
   if (!answer) {
-    return res.status(400).send("Name is needed!");
+    return res.status(400).send("Answer does not exist!");
   }
 
   if (typeof answer != "string") {
@@ -156,11 +156,11 @@ app.post("/question/verify", (req, res) => {
   }
 
   if (answer.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
+    return res.status(400).send("Answer is empty!");
   }
 
   if (!name) {
-    return res.status(400).send("Name is needed!");
+    return res.status(400).send("Name does not exist!");
   }
 
   if (typeof name != "string") {
@@ -168,7 +168,7 @@ app.post("/question/verify", (req, res) => {
   }
 
   if (name.length === 0) {
-    return res.status(400).send("Please enter a valid name!");
+    return res.status(400).send("Name is empty!");
   }
 
   // check if name exists in database
