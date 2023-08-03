@@ -2,7 +2,9 @@ body {
   background-color: rgb(12 30 59);
   display: flex;
   justify-content: center;
-  padding-top: 150px;
+  align-items: center;
+  width: 100vw;
+  height: 100dvh;
 }
 
 .quiz-container {
@@ -11,17 +13,13 @@ body {
   box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
   overflow: hidden;
   width: 750px;
-  background: radial-gradient(circle, rgb(0 42 255) 0%, rgb(76 135 231) 100%);
-  margin-top: 7rem;
-}
-
-.quiz-header {
+  margin: 30px;
   padding: 4rem;
+  background: radial-gradient(circle, rgb(0 42 255) 0%, rgb(76 135 231) 100%);
 }
 
 h2 {
-  margin-bottom: 3rem;
-  padding: 1rem;
+  margin-bottom: 4rem;
   text-align: center;
   font-size: 3rem;
 }
@@ -40,29 +38,34 @@ ul li label {
   cursor: pointer;
 }
 
-button {
+#btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#btn-container button {
   border: none;
   color: white;
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1.4rem;
   padding: 1.3rem;
+  width: 100%;
+  margin-top: 30px;
 }
 
-button:hover {
+#btn-container button:hover {
   background-color: #11325047;
 }
 
 #btn-submit-answers {
   background-color: #004611e6;
-  width: 48%;
   border-radius: 1.2rem;
 }
 
 #btn-exit {
-  margin-left: 0.8rem;
   background-color: #c00000e0;
-  width: 48%;
   border-radius: 1.2rem;
+  margin-right: 20px;
 }
 
 .checkmark {
@@ -74,3 +77,33 @@ button:hover {
   background-color: #eee;
   border-radius: 50%;
 }
+
+/* Media queries */
+
+@media only screen and (max-width: 767px) {
+  .quiz-container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  ul li {
+    font-size: 1.4rem;
+  }
+  #btn-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+  }
+  #btn-container button {
+    max-width: 300px;
+  }
+  #btn-exit {
+    margin-right: 0;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+}
+

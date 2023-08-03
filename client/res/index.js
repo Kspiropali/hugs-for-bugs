@@ -71,7 +71,7 @@ const updateTrees = () => {
               const buttonRect = array[i][j].getBoundingClientRect();
               const containerRect = popupContainer.getBoundingClientRect();
               const leftOffset =
-                buttonRect.left - containerRect.left + buttonRect.width / 1.9;
+                buttonRect.left - containerRect.left + buttonRect.width / 1.9 + 20;
               const topOffset = buttonRect.top - containerRect.top - 25;
 
               popup.textContent = array[i][j].getAttribute("data-popup");
@@ -243,3 +243,62 @@ document.querySelector("#username").addEventListener("keyup", asyncLogin);
 
   setTimeout(arguments.callee, 400);
 })();
+
+
+// Slider functionality
+
+// Array of trees
+const trees = document.querySelectorAll(".tree-container");
+
+// Index counter
+currentIndex = 0;
+
+// Left button
+document.querySelectorAll(".btn-slider")[0].addEventListener("click", () => slider("left"));
+
+// Right button
+document.querySelectorAll(".btn-slider")[1].addEventListener("click", () => slider("right"));
+
+// Slider function
+function slider(direction) {
+
+  if (direction === "left") {
+    trees[currentIndex].classList.toggle("hidden-element");
+
+    if (currentIndex === 0) {
+      trees[trees.length - 1].classList.toggle("hidden-element");
+      currentIndex = trees.length - 1;
+    } else {
+      trees[currentIndex - 1].classList.toggle("hidden-element");
+      currentIndex--;
+    }
+  }
+  else if (direction === "right") {
+    trees[currentIndex].classList.toggle("hidden-element");
+
+    if (currentIndex === trees.length - 1) {
+      trees[0].classList.toggle("hidden-element");
+      currentIndex = 0;
+    } else {
+      trees[currentIndex + 1].classList.toggle("hidden-element");
+      currentIndex++;
+    }
+  }
+}
+
+// Start of stop slider on certain window width
+window.addEventListener("resize", toggleSlider);
+window.addEventListener("load", toggleSlider);
+
+function toggleSlider() {
+  if (window.innerWidth < 1171 && !trees[0].classList.contains("hidden-element")) {
+    for(let i = 1; i < trees.length; i++) {
+      trees[i].classList.add("hidden-element");
+    }
+  }
+  if (window.innerWidth > 1170) {
+    for(let i = 0; i < trees.length; i++) {
+      trees[i].classList.remove("hidden-element");
+    }
+  }
+}
