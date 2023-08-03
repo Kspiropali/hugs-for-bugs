@@ -137,12 +137,14 @@ async function asyncLogin(e) {
         button.removeAttribute("disabled");
         button.value = "REGISTER";
         button.style.backgroundColor = "green";
+        button.style.cursor = "pointer";
         return;
       } else if (result === "Logged in!") {
         // switch to logged in ui
         button.removeAttribute("disabled");
         button.value = "LOGIN";
         button.style.backgroundColor = "blue";
+        button.style.cursor = "pointer";
         return;
       }
     })
