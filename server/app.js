@@ -9,6 +9,7 @@ const project_dir = path.join(__dirname, "..");
 const dbUtils = require("../database/index");
 const students = require("../database/students");
 const questions = require("../database/questions");
+const DEBUG = process.env.DEBUG || "false";
 
 const corsOptions = {
     origin: true, //included origin as true
@@ -28,7 +29,7 @@ app.use((err, req, res, next) => {
 });
 
 // If DEBUG=TRUE then we are in development mode
-if (process.env.DEBUG === "true") {
+if (DEBUG === "true") {
     const logger = require("./logger");
     app.use(logger);
 } else {
@@ -128,19 +129,19 @@ app.post("/question/verify", (req, res) => {
     let {name, question, answer} = req.body;
 
     if (!question) {
-        return res.status(400).send("Name is needed!");
+        return res.status(400).send("Question is needed!");
     }
 
     if (typeof question != "string") {
-        return res.status(400).send("A valid string is needed!");
+        return res.status(400).send("A valid question string is needed!");
     }
 
     if (!answer) {
-        return res.status(400).send("Name is needed!");
+        return res.status(400).send("Answer is needed!");
     }
 
     if (typeof answer != "string") {
-        return res.status(400).send("A valid string is needed!");
+        return res.status(400).send("A valid answer string is needed!");
     }
 
     if (!name) {
@@ -148,7 +149,7 @@ app.post("/question/verify", (req, res) => {
     }
 
     if (typeof name != "string") {
-        return res.status(400).send("A valid string is needed!");
+        return res.status(400).send("A valid name string is needed!");
     }
 
     // check if name exists in database

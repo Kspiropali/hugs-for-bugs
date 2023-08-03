@@ -10,7 +10,7 @@
     "start": "node server/index.js",
     "test": "npx jest"
   },
-  "author": "",
+  "author": "Kristian Spiropali, Balram Singh, Valentin Abrutin",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
