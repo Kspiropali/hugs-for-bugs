@@ -26,10 +26,6 @@ const findStudentByName = (name) => {
   return foundStudent ? foundStudent : null;
 };
 
-const findStudentBySchool = (schoolName) => {
-  return students.students.find((student) => student.school === schoolName);
-};
-
 const findBestStudent = () => {
   const studentPoints = [];
 
@@ -146,7 +142,6 @@ const getStudentData = (studentName) => {
 
 module.exports = {
   findStudentByName,
-  findStudentBySchool,
   findBestStudent,
   findQuestionsByTopic,
   findAnswerByQuestion,

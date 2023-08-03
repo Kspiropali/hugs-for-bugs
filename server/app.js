@@ -36,9 +36,10 @@ if (process.env.DEBUG === "true") {
   const rateLimiterUsingThirdParty = rateLimit({
     windowMs: 30 * 1000, // half a minute in millis
     max: 1000,
-    message: "You have exceeded the 50 requests in 1 minute limit!",
+    message: "You have exceeded the max requests in 1 minute limit time frame!",
     standardHeaders: true,
     legacyHeaders: false,
+    
   });
   app.use(rateLimiterUsingThirdParty);
 }
@@ -88,7 +89,6 @@ app.post("/login", (req, res) => {
 // register a non-existent student
 app.post("/register", (req, res) => {
   const name = req.body.name;
-  console.log(typeof name);
 
   if (!name) {
     return res.status(400).send("Name is needed!");
