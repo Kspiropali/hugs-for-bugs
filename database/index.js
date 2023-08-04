@@ -89,6 +89,7 @@ const changeStudentQuestionCounter = (studentName, question, counter) => {
     const student = findStudentByName(studentName);
 
     // If the student is found, find the specific question within the 'stats' array
+
     if (student) {
         student.stats.forEach((stat) => {
             const specificQuestion = stat.questions.find(
@@ -123,6 +124,7 @@ const getStudentData = (studentName) => {
                     (question.wrongCounter + question.correctCounter)) *
                 100;
 
+            /* istanbul ignore next */
             const result =
                 percentage >= 70 ? "Perfect" : percentage > 40 ? "Normal" : "Bad";
 

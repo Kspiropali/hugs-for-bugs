@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1691143529602" clover="3.2.0">
+  <project timestamp="1691143529602" name="All files">
+    <metrics statements="154" coveredstatements="154" conditionals="52" coveredconditionals="51" methods="32" coveredmethods="32" elements="238" coveredelements="237" complexity="0" loc="154" ncloc="154" packages="2" files="4" classes="4"/>
+    <package name="database">
+      <metrics statements="69" coveredstatements="69" conditionals="14" coveredconditionals="13" methods="22" coveredmethods="22"/>
+      <file name="index.js" path="/home/kspir/hugs-for-bugs/database/index.js">
+        <metrics statements="60" coveredstatements="60" conditionals="14" coveredconditionals="13" methods="19" coveredmethods="19"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="12" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="112" type="stmt"/>
+        <line num="26" count="50" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="36" count="15" type="stmt"/>
+        <line num="37" count="225" type="stmt"/>
+        <line num="38" count="225" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="53" count="53" type="stmt"/>
+        <line num="54" count="145" type="stmt"/>
+        <line num="55" count="2077" type="stmt"/>
+        <line num="57" count="145" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="7" type="stmt"/>
+        <line num="61" count="46" type="stmt"/>
+        <line num="64" count="2" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="71" count="3" type="stmt"/>
+        <line num="72" count="3" type="stmt"/>
+        <line num="79" count="3" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="89" count="18" type="stmt"/>
+        <line num="93" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="94" count="18" type="stmt"/>
+        <line num="95" count="54" type="stmt"/>
+        <line num="96" count="558" type="stmt"/>
+        <line num="98" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="99" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="107" count="2" type="stmt"/>
+        <line num="108" count="5" type="stmt"/>
+        <line num="109" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="113" count="4" type="stmt"/>
+        <line num="114" count="12" type="stmt"/>
+        <line num="115" count="180" type="cond" truecount="2" falsecount="0"/>
+        <line num="116" count="176" type="stmt"/>
+        <line num="123" count="4" type="stmt"/>
+        <line num="131" count="4" type="stmt"/>
+        <line num="136" count="12" type="stmt"/>
+        <line num="142" count="4" type="stmt"/>
+        <line num="145" count="2" type="stmt"/>
+      </file>
+      <file name="questions.js" path="/home/kspir/hugs-for-bugs/database/questions.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="263" count="2" type="stmt"/>
+      </file>
+      <file name="students.js" path="/home/kspir/hugs-for-bugs/database/students.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="8" count="30" type="stmt"/>
+        <line num="16" count="30" type="stmt"/>
+        <line num="24" count="30" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="server">
+      <metrics statements="85" coveredstatements="85" conditionals="38" coveredconditionals="38" methods="10" coveredmethods="10"/>
+      <file name="app.js" path="/home/kspir/hugs-for-bugs/server/app.js">
+        <metrics statements="85" coveredstatements="85" conditionals="38" coveredconditionals="38" methods="10" coveredmethods="10"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="4" type="stmt"/>
+        <line num="70" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="74" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="80" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="94" count="15" type="stmt"/>
+        <line num="96" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="100" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="104" count="13" type="stmt"/>
+        <line num="106" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="107" count="6" type="stmt"/>
+        <line num="112" count="7" type="stmt"/>
+        <line num="113" count="7" type="stmt"/>
+        <line num="114" count="7" type="stmt"/>
+        <line num="116" count="7" type="stmt"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="130" count="2" type="stmt"/>
+        <line num="131" count="14" type="stmt"/>
+        <line num="133" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="137" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="138" count="1" type="stmt"/>
+        <line num="141" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="145" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="146" count="1" type="stmt"/>
+        <line num="149" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="150" count="1" type="stmt"/>
+        <line num="153" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="158" count="8" type="stmt"/>
+        <line num="159" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="165" count="7" type="stmt"/>
+        <line num="167" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="168" count="1" type="stmt"/>
+        <line num="171" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="173" count="3" type="stmt"/>
+        <line num="174" count="3" type="stmt"/>
+        <line num="178" count="3" type="stmt"/>
+        <line num="179" count="3" type="stmt"/>
+        <line num="185" count="2" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="191" count="2" type="stmt"/>
+        <line num="192" count="4" type="stmt"/>
+        <line num="193" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="194" count="1" type="stmt"/>
+        <line num="197" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="198" count="1" type="stmt"/>
+        <line num="201" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="202" count="1" type="stmt"/>
+        <line num="206" count="1" type="stmt"/>
+        <line num="209" count="2" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

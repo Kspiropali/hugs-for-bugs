@@ -3,6 +3,9 @@ const request = require("supertest");
 const questions = require("./questions.js");
 const students = require("./students.js");
 const dbUtils = require("./index.js");
+const students_db = require("./students.js");
+const {studentTemplate} = require("./students");
+const {getStudentData} = require("./index");
 
 describe("find student by name", () => {
     test("should find student by name", async () => {
@@ -86,10 +89,9 @@ describe("find answer by question", () => {
 
 describe("find answer by wrong question", () => {
     test("should return No such question in the database! by wrong question", () => {
-        let wrongQuestion = "blah";
         for (let i = 0; i < questions.length; i++) {
             for (let j = 0; j < questions[i].questions.length; j++) {
-                expect(dbUtils.findAnswerByQuestion(wrongQuestion)).toEqual(
+                expect(dbUtils.findAnswerByQuestion("wrong")).toEqual(
                     "No such question in the database!"
                 );
             }
@@ -135,44 +137,91 @@ describe("generate randomly shuffled answers", () => {
 });
 
 describe("change counter", () => {
-    test("counter should increase on correct answer", async () => {
-        let studentBefore = 0;
-        let studentAfter = 0;
+    test("counter should increase correctCounter on correct answer", async () => {
         const jsonBody = {
-            question: "Who is known as the 'King of Pop'?",
-            counter: "correct",
-            name: "Testuser",
+            name: "Jim",
         };
 
-        const response = await request(app)
-            .post("/register")
-            .send(jsonBody)
+        await request(app).post("/register").send(jsonBody);
 
-        students.students.forEach((student) => {
-            for (let i = 0; i < student.stats.length; i++) {
-                if (student.name === jsonBody.name) {
-                    studentBefore = student.stats[i].questions[0].correctCounter;
-                    break;
-                }
-            }
-        })
+        dbUtils.changeStudentQuestionCounter(
+            "Jim",
+            "Who is known as the 'King of Pop'?",
+            "correct"
+        );
 
-        await dbUtils.changeStudentQuestionCounter("Testuser", "Who is known as the 'King of Pop'?", "correct")
+        const studentDataAfter = students.students.find(
+            (student) => student.name == jsonBody.name
+        );
 
-        students.students.forEach((student) => {
-            for (let i = 0; i < student.stats.length; i++) {
-                if (student.name === jsonBody.name) {
-                    studentAfter = student.stats[i].questions[0].correctCounter;
-                    break;
-                }
-            }
-        })
+        let scoreAfter = studentDataAfter.stats[0].questions[0].correctCounter;
 
-        expect(studentAfter).toEqual(studentBefore + 1);
+        expect(scoreAfter).toEqual(1);
+    });
+});
 
-    })
-})
+describe("change counter", () => {
+    test("counter should increase wrongCounter on wrong answer", async () => {
+        const jsonBody = {
+            name: "Hugo",
+        };
+
+        await request(app).post("/register").send(jsonBody);
+
+        dbUtils.changeStudentQuestionCounter(
+            "Hugo",
+            "Who is known as the 'King of Pop'?",
+            ""
+        );
+
+        const studentDataAfter = students.students.find(
+            (student) => student.name == jsonBody.name
+        );
+
+        let scoreAfter = studentDataAfter.stats[0].questions[0].wrongCounter;
+        expect(scoreAfter).toEqual(1);
+    });
+});
 
 
+describe('getStudentData', () => {
+
+    test('should return null for non-existent student', () => {
+        // run the function for null
+        const result = getStudentData('NonExistentStudent');
+        expect(result).toBeNull();
+    });
+
+    test('should return correct student data', () => {
+        const result = getStudentData('Bob');
+        expect(result[0].stats).toEqual(students.students.stats);
+    });
+
+    test('should return correct student data', () => {
+        for (let i = 0; i < 5; i++) {
+            dbUtils.changeStudentQuestionCounter(
+                "Hugo",
+                "Who is known as the 'King of Pop'?",
+                "correct"
+            );
+        }
+        const result = getStudentData('Hugo');
+        expect(result[0].questions[0].result).toEqual("Perfect");
+    });
+
+    test('should return correct student data', () => {
+        for (let i = 0; i < 5; i++) {
+            dbUtils.changeStudentQuestionCounter(
+                "Jim",
+                "Who is known as the 'King of Pop'?",
+                "incorrect"
+            );
+        }
+
+        const result = getStudentData('Jim');
+        expect(result[0].questions[0].result).toEqual("Bad");
+    });
+
+});
 
 

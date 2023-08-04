@@ -53,23 +53,6 @@ describe("POST /login", () => {
 
 describe("POST /login", () => {
 
-    test("should return a valid string is needed on wrong type of name given!", async () => {
-        const jsonBody = {
-            name: 7
-        };
-
-        const response = await request(app)
-            .post("/login")
-            .send(jsonBody)
-
-
-        expect(response.text).toEqual("A valid string is needed!")
-    })
-
-});
-
-describe("POST /login", () => {
-
     test("should return student's name does not exist in the database!", async () => {
         const jsonBody = {
             name: "bob"
@@ -488,8 +471,95 @@ describe("POST /statistics/best", () => {
 });
 
 
+describe("POST /login", () => {
+
+    test("should return a valid string is needed on wrong type of name given!", async () => {
+        const jsonBody = {
+            name: "Bob"
+        };
+
+        const response = await request(app)
+            .post("/login")
+            .send(jsonBody)
 
 
+        expect(response.text).toEqual("Logged in!")
+    })
+
+    test("should return a valid string is needed on wrong type of name given!", async () => {
+        const jsonBody = {
+            name: 1
+        };
+
+        const response = await request(app)
+            .post("/login")
+            .send(jsonBody)
 
 
+        expect(response.text).toEqual("A valid name string is needed!")
+    })
 
+});
+
+
+describe("POST /statistics/questions", () => {
+
+    test("should return a name is needed on no name given!", async () => {
+        const jsonBody = {
+            name: undefined
+        };
+
+        const response = await request(app)
+            .post("/statistics/questions")
+            .send(jsonBody)
+
+
+        expect(response.text).toEqual("Please provide a valid student name!")
+    })
+
+    test("should return a valid string is needed on wrong type of name given!", async () => {
+        const jsonBody = {
+            name: 1
+        };
+
+        const response = await request(app)
+            .post("/statistics/questions")
+            .send(jsonBody)
+
+
+        expect(response.text).toEqual("Please provide a valid name string!")
+    })
+
+    test("should return student's data!", async () => {
+        const jsonBody = {
+            name: "Bob"
+        };
+
+        const response = await request(app)
+            .post("/statistics/questions")
+            .send(jsonBody)
+
+        if (response.text !== "Student name does not exist in the database!") {
+            expect(true);
+        } else {
+            expect(false).toEqual(true);
+        }
+
+
+    })
+
+    test("should return a name of student not found in database!", async () => {
+        const jsonBody = {
+            name: "amazing"
+        };
+
+        const response = await request(app)
+            .post("/statistics/questions")
+            .send(jsonBody)
+
+
+        expect(response.text).toEqual("Student name does not exist in the database!")
+    })
+
+
+});
