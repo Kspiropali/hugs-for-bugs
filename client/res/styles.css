@@ -5,6 +5,10 @@ body {
   width: 100%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #main-box {
   display: flex;
   flex-direction: column;
@@ -36,7 +40,7 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 0 51px;
-  max-width: 458px;
+  max-width: 602px;
   width: 100%;
   flex-shrink: 0;
 }
@@ -316,6 +320,13 @@ li {
   }
 }
 
+@media only screen and (max-width: 560px) {
+  .tree-container figure {
+    transform: scale(0.5);
+    margin-bottom: -107px;
+  }
+}
+
 @media only screen and (max-width: 500px) {
   #menu-section form {
     flex-direction: column;
@@ -323,5 +334,24 @@ li {
   #login_create_btn {
     margin-top: 10px;
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  #btn-play {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+  }
+  #btn-logout {
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+  }
+  #loginForm {
+    width: 200px;
+  }
+  #loginForm #username {
+    font-size: 20px;
   }
 }
