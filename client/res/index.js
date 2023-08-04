@@ -68,11 +68,15 @@ const updateTrees = () => {
 
             //adding popup on mouse hover listener
             array[i][j].addEventListener("mouseenter", () => {
+              let responsiveWeight = 1
+              if (window.innerWidth < 561) {
+                responsiveWeight = 1.2
+              }
               const buttonRect = array[i][j].getBoundingClientRect();
               const containerRect = popupContainer.getBoundingClientRect();
               const leftOffset =
-                buttonRect.left - containerRect.left + buttonRect.width / 1.9 + 20;
-              const topOffset = buttonRect.top - containerRect.top - 25;
+                (buttonRect.left - containerRect.left + buttonRect.width / 1.9 + 20);
+              const topOffset = (buttonRect.top - containerRect.top - 25) * responsiveWeight;
 
               popup.textContent = array[i][j].getAttribute("data-popup");
               popupContainer.style.left = `${leftOffset}px`;
