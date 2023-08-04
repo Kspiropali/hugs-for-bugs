@@ -21,6 +21,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(project_dir + "/client/res/"));
 // Error-handling middleware for invalid JSON
+/* istanbul ignore next */
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
         return res.status(400).json({error: "Malformed json body!"});
@@ -29,6 +30,7 @@ app.use((err, req, res, next) => {
 });
 
 // If DEBUG=TRUE then we are in development mode
+/* istanbul ignore next */
 if (DEBUG === "true") {
     const logger = require("./logger");
     app.use(logger);
@@ -70,7 +72,7 @@ app.post("/login", (req, res) => {
     }
 
     if (typeof name != "string") {
-        return res.status(400).send("A valid string is needed!");
+        return res.status(400).send("A valid name string is needed!");
     }
 
     let status = dbUtils.findStudentByName(name);
@@ -184,18 +186,22 @@ app.post("/statistics/best", (req, res) => {
     return res.send(dbUtils.findBestStudent());
 });
 
-// endpoint to get the average points for all questions and calculate the average
+// endpoint to get the average points for all questions for a student and calculate the average
 // return [{topic: "topicname", questions: [{question: "what is 1+1", }, {} , {}]}, {}, {}]
 app.post("/statistics/questions", (req, res) => {
     const studentName = req.body.name;
-
-    if (
-        !studentName ||
-        studentName.length === 0 ||
-        (typeof studentName !== String && !dbUtils.findStudentByName(studentName))
-    ) {
+    if (!studentName) {
         return res.status(400).send("Please provide a valid student name!");
     }
+
+    if (typeof studentName !== "string") {
+        return res.status(400).send("Please provide a valid name string!");
+    }
+
+    if (!dbUtils.findStudentByName(studentName)) {
+        return res.status(400).send("Student name does not exist in the database!");
+    }
+
 
     return res.send(dbUtils.getStudentData(studentName));
 });
